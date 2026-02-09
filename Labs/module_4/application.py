@@ -10,8 +10,8 @@ class Drink(db.Model):
     name = db.Column(db.String(80), unique=True, nullable=False)
     description = db.Column(db.String(200), nullable=False)
 
-def __repr__(self):
-    return f'{self.name} - {self.description}'
+    def __repr__(self):
+        return f"{self.name} - {self.description}"
 
 @app.route('/')
 def index():
@@ -19,5 +19,5 @@ def index():
 
 @app.route('/drinks')
 def get_drinks():
-
-    return {"drinks": "drink data"}
+    drinks = Drink.query.all()
+    return {"drinks": drinks}
