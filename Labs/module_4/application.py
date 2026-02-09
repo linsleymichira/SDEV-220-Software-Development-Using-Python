@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, jsonify, render_template
 app = Flask(__name__)
 from flask_sqlalchemy import SQLAlchemy
 
@@ -28,4 +28,9 @@ def get_drinks():
     
     output.append(drink_data)
     
-    return {"drinks": output}
+    return jsonify({"drinks": output})
+
+@app.route('/drinks/<id>')
+def get_drink(id):
+    drink = Drink.query.get_or_404(id)
+    return jsonify({"name": drink.name, "description": drink.description})
